@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExpensX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#000;
+--text:#fff;
+--card:#111;
+--border:#222;
+--accent:#fff;
+}
+.light{
+--bg:#f5f5f5;
+--text:#000;
+--card:#fff;
+--border:#ddd;
+--accent:#000;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Poppins;
+transition:.4s;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+min-height:100vh;
+padding:20px;
+}
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.logo{
+font-family:Playfair Display;
+font-size:26px;
+letter-spacing:3px;
+}
+.menu{
+font-size:28px;
+cursor:pointer;
+}
+
+/* HERO */
+.hero{
+margin-top:110px;
+text-align:center;
+animation:fadeUp 1.2s ease;
+}
+.hero h1{
+font-size:42px;
+font-family:Playfair Display;
+}
+.hero p{
+margin-top:18px;
+opacity:.7;
+line-height:1.7;
+}
+.btn{
+margin-top:35px;
+padding:14px 36px;
+border:1px solid var(--accent);
+background:none;
+color:var(--text);
+cursor:pointer;
+transition:.3s;
+}
+.btn:hover{
+background:var(--accent);
+color:var(--bg);
+}
+
+/* SECTIONS */
+.section{
+padding:90px 20px;
+max-width:1000px;
+margin:auto;
+}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:22px;
+margin-top:45px;
+}
+.card{
+background:var(--card);
+border:1px solid var(--border);
+padding:30px;
+text-align:center;
+cursor:pointer;
+transition:.4s cubic-bezier(.4,0,.2,1);
+}
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+}
+
+/* SHOP */
+.shop{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:22px;
+margin-top:45px;
+}
+.product{
+background:var(--card);
+padding:20px;
+border:1px solid var(--border);
+text-align:center;
+animation:fadeUp .8s ease;
+}
+.product img{
+width:100%;
+border-radius:8px;
+}
+.product button{
+margin-top:12px;
+padding:12px;
+width:100%;
+border:none;
+cursor:pointer;
+background:var(--accent);
+color:var(--bg);
+}
+
+/* CART */
+.cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:var(--accent);
+color:var(--bg);
+padding:12px 20px;
+border-radius:30px;
+font-size:14px;
+z-index:10;
+}
+
+/* SIDE MENU */
+.side-menu{
+position:fixed;
+top:0;
+right:-100%;
+width:85%;
+height:100%;
+background:var(--bg);
+padding:40px 25px;
+transition:.5s cubic-bezier(.4,0,.2,1);
+z-index:1000;
+}
+.side-menu a{
+display:block;
+padding:16px 0;
+border-bottom:1px solid var(--border);
+color:var(--text);
+text-decoration:none;
+font-size:18px;
+opacity:0;
+transform:translateX(20px);
+animation:menuFade .5s forwards;
+}
+.side-menu a:nth-child(n){
+animation-delay:calc(.05s * var(--i));
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:none}
+}
+@keyframes menuFade{
+to{opacity:1;transform:none}
+}
+
+footer{
+padding:40px;
+text-align:center;
+opacity:.6;
+font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header id="home">
+<nav>
+<div class="logo">ExpensX</div>
+<div class="menu" onclick="openMenu()">☰</div>
+</nav>
+
+<div class="hero">
+<h1>Smart money.<br>Smarter you.</h1>
+<p>Your card.<br>Your wishlist.<br>Your control.</p>
+<button class="btn" onclick="scrollToShop()">Explore Shop</button>
+</div>
+</header>
+
+<section class="section" id="dashboard">
+<h2>Dashboard</h2>
+<div class="cards">
+<div class="card" onclick="alert('Card section coming soon')">💳 Your Card</div>
+<div class="card">❤️ Wishlist</div>
+<div class="card">📦 Orders</div>
+<div class="card">🪪 Profile</div>
+</div>
+</section>
+
+<section class="section" id="shop">
+<h2>Shop</h2>
+<div class="shop">
+<div class="product">
+<img src="https://picsum.photos/300/200?1">
+<h4>ExpensX Card</h4>
+<p>₹499</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+<div class="product">
+<img src="https://picsum.photos/300/200?2">
+<h4>Premium Access</h4>
+<p>₹999</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+</div>
+</section>
+
+<footer>© 2026 ExpensX</footer>
+
+<div class="cart" id="cart">🛒 Cart: 0</div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="menu">
+<a style="--i:1" href="#dashboard" onclick="closeMenu()">Your Card</a>
+<a style="--i:2">Wishlist</a>
+<a style="--i:3">Orders</a>
+<a style="--i:4">Profile</a>
+<a style="--i:5" onclick="toggleTheme()">Theme (Dark / Light)</a>
+<a style="--i:6">Privacy & Policy</a>
+<a style="--i:7">Permissions</a>
+<a style="--i:8">Notifications</a>
+<a style="--i:9">Account</a>
+</div>
+
+<script>
+let count=0;
+const menu=document.getElementById("menu");
+
+function openMenu(){
+menu.style.right="0";
+history.pushState({menu:true},"");
+}
+
+function closeMenu(){
+menu.style.right="-100%";
+}
+
+window.onpopstate=function(){
+closeMenu();
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+function addCart(){
+count++;
+cart.innerText="🛒 Cart: "+count;
+}
+
+function scrollToShop(){
+document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
